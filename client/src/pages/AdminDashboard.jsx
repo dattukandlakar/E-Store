@@ -62,6 +62,16 @@ const AdminDashboard = () => {
             </div>
           </Link>
 
+          <Link to="/admin/categories" className="bg-white rounded-lg shadow p-6 hover:shadow-md transition">
+            <div className="flex items-center justify-between">
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-1">Manage Categories</h3>
+                <p className="text-gray-600 text-sm">Create and view categories</p>
+              </div>
+              <i className="fas fa-tags text-3xl text-orange-600"></i>
+            </div>
+          </Link>
+
           <Link to="/admin/users" className="bg-white rounded-lg shadow p-6 hover:shadow-md transition">
             <div className="flex items-center justify-between">
               <div>

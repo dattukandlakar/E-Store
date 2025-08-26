@@ -23,6 +23,7 @@ import AdminDashboard from './pages/AdminDashboard';
 import AdminProducts from './pages/AdminProducts';
 import AdminOrders from './pages/AdminOrders';
 import AdminUsers from './pages/AdminUsers';
+import AdminCategories from './pages/AdminCategories';
 import Welcome from './pages/Welcome';
 
 // Protected Route Component
@@ -98,6 +99,11 @@ function App() {
           <Route path="/admin/users" element={
             <AdminRoute>
               <AdminUsers />
+            </AdminRoute>
+          } />
+          <Route path="/admin/categories" element={
+            <AdminRoute>
+              <AdminCategories />
             </AdminRoute>
           } />
         </Routes>

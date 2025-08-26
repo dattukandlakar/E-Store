@@ -28,6 +28,29 @@ export const getCategories = createAsyncThunk(
   }
 );
 
+// Create a new category (admin only)
+export const createCategory = createAsyncThunk(
+  'categories/createCategory',
+  async (name, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().auth.token;
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      const response = await axios.post(CATEGORY_API_URL, { name }, config);
+      return response.data;
+    } catch (error) {
+      const message =
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message;
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 const categorySlice = createSlice({
   name: 'categories',
   initialState,
@@ -43,6 +66,19 @@ const categorySlice = createSlice({
         state.categories = action.payload;
       })
       .addCase(getCategories.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      });
+    builder
+      .addCase(createCategory.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(createCategory.fulfilled, (state, action) => {
+        state.loading = false;
+        state.categories.push(action.payload);
+      })
+      .addCase(createCategory.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });

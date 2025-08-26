@@ -8,6 +8,7 @@ const {
   getUsers,
   deleteUser,
   uploadAvatar,
+  updateUserRole,
 } = require('../controllers/authController');
 const { protect, admin } = require('../middleware/authMiddleware');
 const upload = require('../middleware/uploadMiddleware');
@@ -30,5 +31,8 @@ router.route('/users')
 
 router.route('/users/:id')
   .delete(protect, admin, deleteUser);
+
+router.route('/users/:id/role')
+  .put(protect, admin, updateUserRole);
 
 module.exports = router;
