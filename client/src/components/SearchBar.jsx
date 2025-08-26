@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const SearchBar = ({ onSearch }) => {
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
   const [category, setCategory] = useState('');
   const [minPrice, setMinPrice] = useState('');
@@ -14,7 +16,16 @@ const SearchBar = ({ onSearch }) => {
       minPrice: minPrice || undefined,
       maxPrice: maxPrice || undefined
     };
-    onSearch(searchParams);
+    // Call optional callback (Home page live-search)
+    if (onSearch) onSearch(searchParams);
+
+    // Also navigate to Products page with query params
+    const params = new URLSearchParams();
+    if (searchParams.keyword) params.set('keyword', searchParams.keyword);
+    if (searchParams.category) params.set('category', searchParams.category);
+    if (searchParams.minPrice) params.set('minPrice', searchParams.minPrice);
+    if (searchParams.maxPrice) params.set('maxPrice', searchParams.maxPrice);
+    navigate(`/products${params.toString() ? `?${params.toString()}` : ''}`);
   };
 
   const handleReset = () => {
@@ -22,7 +33,8 @@ const SearchBar = ({ onSearch }) => {
     setCategory('');
     setMinPrice('');
     setMaxPrice('');
-    onSearch({});
+    if (onSearch) onSearch({});
+    navigate('/products');
   };
 
   return (

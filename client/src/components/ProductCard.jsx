@@ -73,9 +73,9 @@ const ProductCard = ({ product }) => {
       {/* Product Info */}
       <div className="p-4">
         {/* Category */}
-        <div className="text-sm text-gray-500 mb-2">
+        {/* <div className="text-sm text-gray-500 mb-2">
           {product.category}
-        </div>
+        </div> */}
         
         {/* Product Name */}
         <Link to={`/product/${product._id}`}>
